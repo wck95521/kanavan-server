@@ -1,0 +1,32 @@
+_INITIALAMOUNT: 1000000000000000
+_TOKENNAME: Kanavan
+_DECIMALUNITS: 7
+_TOKENSYMBOL: KAN
+
+aaPanel Internet Address: http://75.119.151.238:7800/55532e51
+aaPanel Internal Address: http://75.119.151.238:7800/55532e51
+username: nmqoswmd
+password: 4185b31b
+
+apt-get install software-properties-common
+add-apt-repository -y ppa:ethereum/ethereum
+apt-get update
+apt-get install ethereum
+
+geth --datadir /www/wwwroot/node init genesis.json
+geth --datadir /www/wwwroot/node account new
+geth --datadir /www/wwwroot/node --syncmode snap --gcmode archive --mine --miner.threads=1 --networkid 20 --nodiscover --http.port 8545 --http.api eth,net,web3,admin,personal,miner --port 30303 --http --http.addr 0.0.0.0 --http.corsdomain '*' --allow-insecure-unlock
+geth attach /www/wwwroot/node/geth.ipc
+geth attach http://127.0.0.1:8545
+
+eth.getBalance("0xf86...")
+eth.accounts
+miner.start(1)
+miner.stop()
+eth.blockNumber
+eth.syncing
+personal.newAccount("password")
+personal.unlockAccount(eth.accounts[0],"password")
+admin.nodeInfo
+net.peerCount
+admin.peers
