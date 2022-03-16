@@ -1,7 +1,9 @@
-import { Controller, Post, UseGuards, Body } from '@nestjs/common';
+import { Controller, Post, UseGuards, Body, Get } from '@nestjs/common';
+import { RequestUser } from '../users/users.decorator';
 import { User } from '../users/users.entity';
 import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './local-auth.guard';
+import { RequestAccessToken } from './auth.decorator';
 
 @Controller('auth')
 export class AuthController {
@@ -9,7 +11,12 @@ export class AuthController {
 
   @UseGuards(LocalAuthGuard)
   @Post()
-  auth(@Body() user: User) {
+  auth(@RequestUser() user: User) {
     return this.authService.auth(user);
+  }
+
+  @Get('refresh')
+  refresh(@RequestAccessToken() accessToken: string) {
+    return this.authService.refresh(accessToken);
   }
 }

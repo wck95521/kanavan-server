@@ -9,13 +9,14 @@ username: nmqoswmd
 password: 4185b31b
 
 apt-get install software-properties-common
-add-apt-repository -y ppa:ethereum/ethereum
+add-apt-repository ppa:ethereum/ethereum
 apt-get update
 apt-get install ethereum
+apt-get install puppeth
 
 geth --datadir /www/wwwroot/node init genesis.json
 geth --datadir /www/wwwroot/node account new
-geth --datadir /www/wwwroot/node --syncmode snap --gcmode archive --mine --miner.threads=1 --networkid 20 --nodiscover --http.port 8545 --http.api eth,net,web3,admin,personal,miner --port 30303 --http --http.addr 0.0.0.0 --http.corsdomain '*' --allow-insecure-unlock
+geth --datadir /www/wwwroot/node --syncmode full --gcmode archive --networkid 20 --nodiscover --http.port 8545 --http.api eth,net,web3,admin,personal,miner --port 30303 --http --http.addr 0.0.0.0 --http.corsdomain '*' --allow-insecure-unlock
 geth attach /www/wwwroot/node/geth.ipc
 geth attach http://127.0.0.1:8545
 

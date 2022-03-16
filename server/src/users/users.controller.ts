@@ -12,23 +12,28 @@ export class UsersController {
   async create(@Body() user: User): Promise<User> {
     return await this.usersService.create(
       user.username,
-      user.emailAddress,
-      user.walletAddress,
+      user.email,
       user.password,
+      user.country,
     );
   }
 
   @UseGuards(JwtAuthGuard)
   @Get()
-  findOne(@RequestUser() user: User): User {
-    return user;
+  async findOneByUsername(@RequestUser() user: User): Promise<User> {
+    return this.usersService.findOneByUsernameWithoutPassword(user.username);
   }
 
-  @UseGuards(JwtAuthGuard)
-  @Post('verify-email')
-  async verifyEmail(@RequestUser() user: User): Promise<User> {
-    return await this.usersService.verifyEmail(user.username);
+  @Get('supply')
+  async getCurrentSupply(): Promise<any> {
+    return this.usersService.getCurrentSupply();
   }
+
+  // @UseGuards(JwtAuthGuard)
+  // @Post('verify-email')
+  // async verifyEmail(@RequestUser() user: User): Promise<User> {
+  //   return await this.usersService.verifyEmail(user.username);
+  // }
 
   @UseGuards(JwtAuthGuard)
   @Post('mining')

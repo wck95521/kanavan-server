@@ -8,9 +8,9 @@ import { User } from '../users/users.entity';
 export class MailController {
   constructor(private readonly mailService: MailService) {}
 
-  @UseGuards(JwtAuthGuard)
-  @Post('send-verification')
-  async sendVerification(@RequestUser() user: User) {
-    return await this.mailService.sendVerification(user);
-  }
+  // @UseGuards(JwtAuthGuard)
+  // @Post('send-verification')
+  // async sendVerification(@RequestUser() user: User) {
+  //   return await this.mailService.sendVerification(user);
+  // }
 }

@@ -11,10 +11,9 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async validateUser(username: string, pass: string): Promise<any> {
-    const user = await this.usersService.findOne(username);
-    const comparePassword = await bcrypt.compare(pass, user.password);
-    if (user && comparePassword) {
+  async validateUser(username: string, pass: string): Promise<User | null> {
+    const user = await this.usersService.findOneByUsername(username);
+    if (user && (await bcrypt.compare(pass, user.password))) {
       const { password, ...result } = user;
       return result;
     }
@@ -23,6 +22,14 @@ export class AuthService {
 
   auth(user: User) {
     const payload = { username: user.username, sub: user.id };
+    return {
+      accessToken: this.jwtService.sign(payload),
+    };
+  }
+
+  refresh(accessToken: string) {
+    const decoded: any = this.jwtService.decode(accessToken);
+    const payload = { username: decoded.username, sub: decoded.sub };
     return {
       accessToken: this.jwtService.sign(payload),
     };

@@ -9,11 +9,11 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 export class TokenController {
   constructor(private readonly tokenService: TokenService) {}
 
-  @UseGuards(JwtAuthGuard)
-  @Post('transfer')
-  async transfer(@RequestUser() user: User): Promise<TransferResponseDto> {
-    return await this.tokenService.transfer(user.username);
-  }
+  // @UseGuards(JwtAuthGuard)
+  // @Post('transfer')
+  // async transfer(@RequestUser() user: User): Promise<TransferResponseDto> {
+  //   return await this.tokenService.transfer(user.username);
+  // }
 
   @Post('send-token')
   async sendToken(@Body() body: any): Promise<TransferResponseDto> {

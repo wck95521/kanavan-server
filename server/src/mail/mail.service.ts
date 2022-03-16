@@ -39,14 +39,14 @@ export class MailService {
     );
   }
 
-  async sendVerification(user: User): Promise<SendVerificationResponseDto> {
-    const findUser = await this.usersService.findOne(user.username);
-    const link =
-      this.configService.get('MAIL_VERIFICATION_LINK') +
-      this.authService.auth(user).accessToken;
-    const html = this.createHtml(user.username, link);
-    return await this.sendMail(findUser.emailAddress, html);
-  }
+  // async sendVerification(user: User): Promise<SendVerificationResponseDto> {
+  //   const findUser = await this.usersService.findOne(user.username);
+  //   const link =
+  //     this.configService.get('MAIL_VERIFICATION_LINK') +
+  //     this.authService.auth(user).accessToken;
+  //   const html = this.createHtml(user.username, link);
+  //   return await this.sendMail(findUser.emailAddress, html);
+  // }
 
   async sendMail(
     to: string,

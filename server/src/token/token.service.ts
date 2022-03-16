@@ -54,34 +54,37 @@ export class TokenService {
     return { transactionHash: transactionHash };
   }
 
-  async transfer(username: string): Promise<TransferResponseDto> {
-    const user = await this.usersService.findOne(username);
-    if (user.balance > 0) {
-      const sendToken = await this.sendToken(user.balance, user.walletAddress);
-      await this.usersService.updateBalance(username, 0);
-      return sendToken;
-      // const decimals = await this.contract.methods.decimals().call();
-      // const amount = user.balance * Math.pow(10, decimals);
-      // const transactionConfig = new TransactionDto();
-      // transactionConfig.from = this.configService.get('CONTRACT_FROM');
-      // transactionConfig.to = this.configService.get('CONTRACT_TO');
-      // transactionConfig.data = this.contract.methods
-      //   .transfer(user.ethAddress, amount)
-      //   .encodeABI();
-      // transactionConfig.gas = await this.web3.eth.estimateGas(
-      //   transactionConfig,
-      // );
-      // transactionConfig.nonce = await this.web3.eth.getTransactionCount(
-      //   this.configService.get('CONTRACT_FROM'),
-      //   'latest',
-      // );
-      // transactionConfig.gasPrice = await this.web3.eth.getGasPrice();
-      // const transactionHash = await this.sendTransaction(transactionConfig);
-      // await this.usersService.updateBalance(username, 0);
-      // return { transactionHash: transactionHash };
-    }
-    return { transactionHash: null };
-  }
+  // async transfer(username: string): Promise<TransferResponseDto> {
+  //   const user = await this.usersService.findOne(username);
+  //   if (user.transferableBalance > 0) {
+  //     const sendToken = await this.sendToken(
+  //       user.transferableBalance,
+  //       user.wallet,
+  //     );
+  //     await this.usersService.updateBalance(username, 0);
+  //     return sendToken;
+  //     // const decimals = await this.contract.methods.decimals().call();
+  //     // const amount = user.balance * Math.pow(10, decimals);
+  //     // const transactionConfig = new TransactionDto();
+  //     // transactionConfig.from = this.configService.get('CONTRACT_FROM');
+  //     // transactionConfig.to = this.configService.get('CONTRACT_TO');
+  //     // transactionConfig.data = this.contract.methods
+  //     //   .transfer(user.ethAddress, amount)
+  //     //   .encodeABI();
+  //     // transactionConfig.gas = await this.web3.eth.estimateGas(
+  //     //   transactionConfig,
+  //     // );
+  //     // transactionConfig.nonce = await this.web3.eth.getTransactionCount(
+  //     //   this.configService.get('CONTRACT_FROM'),
+  //     //   'latest',
+  //     // );
+  //     // transactionConfig.gasPrice = await this.web3.eth.getGasPrice();
+  //     // const transactionHash = await this.sendTransaction(transactionConfig);
+  //     // await this.usersService.updateBalance(username, 0);
+  //     // return { transactionHash: transactionHash };
+  //   }
+  //   return { transactionHash: null };
+  // }
 
   async sendTransaction(
     transactionConfig: TransactionConfigDto,
